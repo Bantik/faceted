@@ -8,11 +8,12 @@ module Faceted
         @fields ||= [:id]
       end
 
-      def materialize(objects=[])
+      def materialize(objects=[], args={})
         objects.compact.inject([]) do |a, object|
           instance = self.new
           instance.send(:object=, object)
           instance.send(:initialize_with_object)
+          instance.send(:excludes=, args[:excludes]) if args[:excludes]
           a << instance
         end
       end
