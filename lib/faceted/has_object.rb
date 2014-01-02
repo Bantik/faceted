@@ -86,7 +86,7 @@ module Faceted
 
     def object=(obj)
       @object = obj
-      self.id = obj.id if obj.id.present?
+      self.id = obj.id if obj.respond_to?(:id) && obj.id.present?
     end
 
     def settable_field?(field_name)
